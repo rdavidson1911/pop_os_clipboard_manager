@@ -1,0 +1,24 @@
+# SQLite database files
+.clipboard_history/
+*.db
+*.db-journal
+
+# Temporary files
+*.tmp
+*~
+
+# Log files
+*.log
+
+# Environment files
+.env
+
+# IDE specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS specific files
+.DS_Store
+Thumbs.db
