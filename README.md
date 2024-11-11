@@ -5,9 +5,8 @@
 
 A lightweight, GUI-based clipboard manager for Linux that simulates Windows 11's clipboard history functionality (Win + V). Store, view, and reuse your last 25 clipboard entries with ease.
 
-![Clipboard Manager Main Interface](./docs/images/main-interface.png)
-> [!NOTE]
-> Screenshot placeholder: Add screenshot of main interface
+![Clipboard Manager Main Interface](./res/clipt.png)
+
 
 ## Features
 
