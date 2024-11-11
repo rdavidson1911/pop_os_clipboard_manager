@@ -87,6 +87,7 @@ monitor_clipboard() {
 
 # Show clipboard history GUI
 show_history() {
+    # Get entries from database
     local entries=$(sqlite3 "$DB_FILE" "SELECT content, datetime(timestamp, 'localtime') FROM clipboard ORDER BY timestamp DESC;")
     
     if [ -z "$entries" ]; then
@@ -94,23 +95,20 @@ show_history() {
         return
     fi
     
-    # Create temporary file with formatted entries
-    local temp_file=$(mktemp)
-    echo "$entries" | while IFS='|' read -r content timestamp; do
-        echo "[$timestamp] $content"
-    done > "$temp_file"
+    # Create array of entries for zenity list
+    local items=()
+    while IFS='|' read -r content timestamp; do
+        items+=("[$timestamp] $content")
+    done < <(echo "$entries")
     
-    # Show selection dialog
+    # Show selection dialog using array
     selected=$(zenity --list \
         --title="Clipboard History" \
         --text="Select an item to copy:" \
         --column="Content" \
+        "${items[@]}" \
         --width=800 \
-        --height=600 \
-        --filename="$temp_file")
-    
-    # Clean up temp file
-    rm "$temp_file"
+        --height=600)
     
     if [ ! -z "$selected" ]; then
         # Extract content without timestamp
